@@ -1,0 +1,76 @@
+<div class="container">
+  <h2>Administrador de Personas</h2>
+
+  <!-- Formulario para crear o actualizar personas -->
+  <form #personasForm="ngForm" *ngIf="modoEdicion" class="comparendo-form">
+    <div class="form-group">
+      <label for="tipodocumento">Tipo de Documento:</label>
+      <select id="tipodocumento" name="tipodocumento" [(ngModel)]="persona.tipoDocumento" required>
+        <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="documento">Documento:</label>
+      <input type="text" id="documento" name="documento" [(ngModel)]="persona.documento" required>
+    </div>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" [(ngModel)]="persona.nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="nickName">NickName:</label>
+      <input type="text" id="nickName" name="nickName" [(ngModel)]="persona.nickName" required>
+    </div>
+    <div class="form-group">
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" name="contrasena" [(ngModel)]="persona.contrasena" required>
+    </div>
+    <button type="button" (click)="guardar()" class="btn btn-primary">Guardar</button>
+  </form>
+
+  <!-- Botón para crear una nueva persona -->
+  <button type="button" (click)="modoEdicion = true; persona = { tipodocumento: '', documento: '', nombre: '', nickName: '', contrasena: '', id: 0 }" class="btn btn-success">Crear Nueva Persona</button>
+
+  <!-- Formulario de búsqueda -->
+  <div class="form-group">
+    <label for="tipoDocumentoBusqueda">Tipo de Documento:</label>
+    <select id="tipoDocumentoBusqueda" name="tipoDocumentoBusqueda" [(ngModel)]="tipoDocumentoBusqueda">
+      <option value="">Todos</option>
+      <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="documentoBusqueda">Documento:</label>
+    <input type="text" id="documentoBusqueda" name="documentoBusqueda" [(ngModel)]="documentoBusqueda">
+  </div>
+  <button type="button" (click)="buscar()" class="btn btn-primary">Buscar</button>
+
+  <!-- Tabla para mostrar todas las personas -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Id Persona</th>
+        <th>Tipo de Documento</th>
+        <th>Documento</th>
+        <th>Nombre</th>
+        <th>NickName</th>
+        <th>Contraseña</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let persona of personas">
+        <td>{{ persona.idPersona }}</td>
+        <td>{{ persona.tipoDocumento }}</td>
+        <td>{{ persona.documento }}</td>
+        <td>{{ persona.nombre }}</td>
+        <td>{{ persona.nickName }}</td>
+        <td>{{ persona.contrasena }}</td>
+        <td>
+          <button (click)="editar(persona)">Editar</button>
+          <button (click)="eliminar(persona.idPersona)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

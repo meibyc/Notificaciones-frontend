@@ -1,0 +1,72 @@
+<div class="container">
+  <h2>Administrador de Derechos de Tránsito</h2>
+
+  <!-- Formulario para crear o actualizar derechos de tránsito -->
+  <form #derechosForm="ngForm" *ngIf="modoEdicion" class="derechos-form">
+    <div class="form-group">
+      <label for="idPersona">ID Persona:</label>
+      <input type="text" id="idPersona" name="idPersona" [(ngModel)]="derecho.idPersona" required>
+      <a routerLink="/PersonasComponent" target="_blank">Consulta, Crea o Modifica  Persona</a>
+
+    </div>
+    <div class="form-group">
+      <label for="vigencia">Vigencia:</label>
+      <input type="text" id="vigencia" name="vigencia" [(ngModel)]="derecho.vigencia" required>
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor:</label>
+      <input type="number" id="valor" name="valor" [(ngModel)]="derecho.valor" required>
+    </div>
+    <div class="form-group">
+      <label for="placaVehiculo">Placa del Vehículo:</label>
+      <input type="text" id="placaVehiculo" name="placaVehiculo" [(ngModel)]="derecho.placaVehiculo" required>
+    </div>
+    <button type="button" (click)="guardar()" class="btn btn-primary">Guardar</button>
+  </form>
+
+
+  <div>-------------------------------------</div>
+  <!-- Botón para crear un nuevo derecho de tránsito -->
+  <button type="button" (click)="modoEdicion = true; derecho = { idDerechosDeTransito: '', idPersona: '', vigencia: '', valor: 0, placaVehiculo: '' }" class="btn btn-success">Crear Nuevo Derecho de Tránsito</button>
+  <div>-------------------------------------</div>
+  <!-- Formulario de búsqueda -->
+  <div class="form-group">
+    <label for="tipoDocumentoBusqueda">Tipo de Documento:</label>
+    <select id="tipoDocumentoBusqueda" name="tipoDocumentoBusqueda" [(ngModel)]="tipoDocumentoBusqueda">
+      <option value="">Todos</option>
+      <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="documentoBusqueda">Documento:</label>
+    <input type="text" id="documentoBusqueda" name="documentoBusqueda" [(ngModel)]="documentoBusqueda">
+  </div>
+  <button type="button" (click)="buscar()" class="btn btn-primary">Buscar</button>
+  <div>-------------------------------------</div>
+  <!-- Tabla para mostrar todos los derechos de tránsito -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID Derechos de Tránsito</th>
+        <th>ID Persona</th>
+        <th>Vigencia</th>
+        <th>Valor</th>
+        <th>Placa del Vehículo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let derecho of derechos">
+        <td>{{ derecho.idDerechosDeTransito }}</td>
+        <td>{{ derecho.idPersona }}</td>
+        <td>{{ derecho.vigencia }}</td>
+        <td>{{ derecho.valor }}</td>
+        <td>{{ derecho.placaVehiculo }}</td>
+        <td>
+          <button (click)="editar(derecho)">Editar</button>
+          <button (click)="eliminar(derecho.idDerechosDeTransito)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

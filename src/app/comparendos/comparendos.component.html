@@ -1,0 +1,87 @@
+<div class="container">
+  <h2>Administrador de Comparendos</h2>
+
+  <!-- Formulario para crear o actualizar comparendos -->
+  <form #comparendosForm="ngForm" *ngIf="modoEdicion" class="comparendo-form">
+    <div class="form-group">
+      <label for="numeroComparendo">Número Comparendo:</label>
+      <input type="text" id="numeroComparendo" name="numeroComparendo" [(ngModel)]="comparendo.numeroComparendo" required>
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor Comparendo:</label>
+      <input type="number" id="valor" name="valor" [(ngModel)]="comparendo.valor" required>
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <input type="text" id="descripcion" name="descripcion" [(ngModel)]="comparendo.descripcion" required>
+    </div>
+    <div class="form-group">
+      <label for="tipo">Tipo:</label>
+      <input type="text" id="tipo" name="tipo" [(ngModel)]="comparendo.tipo" required>
+    </div>
+    <div class="form-group">
+      <label for="fechaComparendo">Fecha Comparendo:</label>
+      <input type="date" id="fechaComparendo" name="fechaComparendo" [(ngModel)]="comparendo.fechaComparendo" required>
+    </div>
+    <div class="form-group">
+      <label for="fechaNotificacion">Fecha Notificación:</label>
+      <input type="date" id="fechaNotificacion" name="fechaNotificacion" [(ngModel)]="comparendo.fechaNotificacion" required>
+    </div>
+    <div class="form-group">
+      <label for="persona">Persona:</label>
+      <input type="text" id="persona" name="persona" [(ngModel)]="comparendo.idPersona" required>
+      <a routerLink="/PersonasComponent" target="_blank">Consulta, Crea o Modifica  Persona</a>
+
+    </div>
+    <button type="button" (click)="guardar()" class="btn btn-primary">Guardar</button>
+  </form>
+
+  <!-- Botón para crear un nuevo comparendo -->
+  <button type="button" (click)="modoEdicion = true; comparendo = { numerocomparendo: '', valorcomparendo: 0, fechacomparendo: '', persona: '', id: 0 }" class="btn btn-success">Crear Nuevo Comparendo</button>
+<!-- Formulario de búsqueda -->
+<div class="form-group">
+  <label for="tipoDocumentoBusqueda">Tipo de Documento:</label>
+  <select id="tipoDocumentoBusqueda" name="tipoDocumentoBusqueda" [(ngModel)]="tipoDocumentoBusqueda">
+    <option value="">Todos</option>
+    <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="documentoBusqueda">Documento:</label>
+  <input type="text" id="documentoBusqueda" name="documentoBusqueda" [(ngModel)]="documentoBusqueda">
+</div>
+<button type="button" (click)="buscar()" class="btn btn-primary">Buscar</button>
+
+  <!-- Tabla para mostrar todos los comparendos -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Id Comparendo</th>
+        <th>Número Comparendo</th>
+        <th>Valor Comparendo</th>
+        <th>Descripción</th>
+        <th>Tipo</th>
+        <th>Fecha Comparendo</th>
+        <th>Fecha Notificación</th>
+        <th>Persona</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comparendo of comparendos">
+        <td>{{ comparendo.idComparendo }}</td>
+        <td>{{ comparendo.numeroComparendo }}</td>
+        <td>{{ comparendo.valor }}</td>
+        <td>{{ comparendo.descripcion }}</td>
+        <td>{{ comparendo.tipo }}</td>
+        <td>{{ comparendo.fechaComparendo }}</td>
+        <td>{{ comparendo.fechaNotificacion }}</td>
+        <td>{{ comparendo.idPersona }}</td>
+        <td>
+          <button (click)="seleccionarComparendo(comparendo)">Editar</button>
+          <button (click)="eliminar(comparendo.idComparendo)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

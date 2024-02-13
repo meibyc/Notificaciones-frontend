@@ -1,0 +1,32 @@
+<header style="background-color: #8d818161; color: #000; text-align: center;">
+
+  <hgroup>
+      <h1> Sistema de notificaciones de tránsito y transporte</h1>
+      <h2> DErechos de transito </h2>
+  </hgroup>
+ 
+</header>
+<!-- Formulario de búsqueda -->
+  <div class="form-group">
+    <label for="placaBusqueda">Placa:</label>
+    <input type="text" id="placaBusqueda" name="placaBusqueda" [(ngModel)]="placaBusqueda">
+  </div>
+  <button type="button" (click)="buscar()" class="btn btn-primary">Buscar</button>
+  <div>-------------------------------------</div>
+  <!-- Tabla para mostrar todos los derechos de tránsito -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Vigencia</th>
+        <th>Valor</th>
+        <th>Placa del Vehículo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let derecho of derechos">
+        <td>{{ derecho.vigencia }}</td>
+        <td>{{ derecho.valor }}</td>
+        <td>{{ derecho.placaVehiculo }}</td>
+      </tr>
+    </tbody>
+  </table>

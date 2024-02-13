@@ -1,0 +1,49 @@
+<header style="background-color: #8d818161; color: #000; text-align: center;">
+
+  <hgroup>
+      <h1> Sistema de notificaciones de tránsito y transporte</h1>
+      <h2> Comparendos </h2>
+  </hgroup>
+ 
+</header>
+<!-- Formulario de búsqueda -->
+<div class="form-group">
+    <label for="tipoDocumentoBusqueda">Tipo de Documento:</label>
+    <select id="tipoDocumentoBusqueda" name="tipoDocumentoBusqueda" [(ngModel)]="tipoDocumentoBusqueda">
+      <option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{ tipo }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="documentoBusqueda">Documento:</label>
+    <input type="text" id="documentoBusqueda" name="documentoBusqueda" [(ngModel)]="documentoBusqueda">
+  </div>
+  <button type="button" (click)="buscar()" class="btn btn-primary">Buscar</button> <!-- Tabla para mostrar todos los comparendos -->
+<!-- Tabla para mostrar todos los comparendos -->
+<table class="table table-bordered" *ngIf="comparendos.length > 0; else noRegistros">
+    <thead>
+      <tr>
+        <th>Número Comparendo</th>
+        <th>Valor Comparendo</th>
+        <th>Descripción</th>
+        <th>Tipo</th>
+        <th>Fecha Comparendo</th>
+        <th>Fecha Notificación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comparendo of comparendos">
+        <td>{{ comparendo.numeroComparendo }}</td>
+        <td>{{ comparendo.valor }}</td>
+        <td>{{ comparendo.descripcion }}</td>
+        <td>{{ comparendo.tipo }}</td>
+        <td>{{ comparendo.fechaComparendo }}</td>
+        <td>{{ comparendo.fechaNotificacion }}</td>
+ 
+      </tr>
+    </tbody>
+  </table>
+  
+  <ng-template #noRegistros>
+    <p>No hay registros.</p>
+  </ng-template>
+  
